@@ -1,10 +1,11 @@
 import RPi.GPIO as GPIO
 import time
-
+#Pin for endstop
 ButtonPin = 26
+#Pins for stepper motor (from a-d)
 ControlPins = [25,8,7,1]
 
-# careful lowering this, at some point you run into the mechanical limitation of how quick your motor can move
+#Delay between steps, affects speed
 step_sleep = 0.002
 
 step_count = 4096  # 5.625*(1/64) per step, 4096 steps is 360°
