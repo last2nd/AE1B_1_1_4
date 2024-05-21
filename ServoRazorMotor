@@ -1,19 +1,34 @@
-from machine import Pin, PWM
-from time import sleep
+import RPi.GPIO as GPIO
+import time
 
-servo = PWM(Pin(0))
+servo_pin = #any
+button_pin = #any
 
-servo.freq(50)
+GPIO.setmode(GPIO.BCM)
+GPIO.setup(servo_pin, GPIO.OUT)
+GPIO.setup(button_pin, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 
-def set_angle(angle):
-   
-    duty = int((angle / 180) * 65535)
-    servo.duty_u16(duty)
+pwm = GPIO.PWM(servo_pin, 50)   #50 Hz frequency
+pwm.start(0)   #Initial duty cycle
 
-for _ in range(15):
-    for angle in range(0, 15, 1):
-        set_angle(angle)
-        sleep(0.005)  
-    for angle in range(15, 0, -1):
-        set_angle(angle)
-        sleep(0.005)
+def button_callback(channel):
+    print("Button pressed!") 
+    for i in range(15):  # Loop 15 times
+        # Move servo arm to the right
+        pwm.ChangeDutyCycle(2.5)
+        time.sleep(0.05)
+
+        # Move servo arm to the left
+        pwm.ChangeDutyCycle(4.5)
+        time.sleep(0.05)
+
+# Detect a falling edge on the button pin,(the state of the button pin changed from high to low) and debounces it with a 200ms delay
+GPIO.add_event_detect(button_pin, GPIO.FALLING, callback=button_callback, bouncetime=200)
+
+try:
+    while True:
+        time.sleep(0.1)  
+finally:
+    pwm.stop()
+    GPIO.cleanup()
+
