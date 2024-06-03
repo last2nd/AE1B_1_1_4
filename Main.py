@@ -1,14 +1,14 @@
 import Elevator
 import ServoRazorMotor
 
-HammerServoPin = #any
-HammerButtonPin = #any
+HammerServoPin = #any #type: ignore
+HammerButtonPin = #any #type: ignore
 
-ElevatorControlPins = #any
-ElevatorEndstopPin = #any
-ElevatorShockSensorPin = #any
+ElevatorControlPins = #any #type: ignore
+ElevatorEndstopPin = #any #type: ignore
+ElevatorShockSensorPin = #any #type: ignore
 
-JoyInPin = #ADCChannel
+JoyInPin = #ADCChannel #type: ignore
 
 if input("start program? y/n\n") == "y":
     print("Starting Program")

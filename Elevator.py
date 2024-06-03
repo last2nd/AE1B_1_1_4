@@ -1,4 +1,4 @@
-import RPi.GPIO as GPIO
+import RPi.GPIO as GPIO  # type: ignore
 import time
 
 motor_step_counter = 0
@@ -81,8 +81,6 @@ def ShockDetect(ShockPin):
     GPIO.setup(ShockPin, GPIO.IN)
     while GPIO.input(ShockPin) < 1:
         time.sleep(0.1)
-    else:
-        return
 
 
 def main(ControlPins, ButtonPin, ShockPin):
