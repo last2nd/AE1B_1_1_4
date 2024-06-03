@@ -31,7 +31,6 @@ step_sequence = [
 
 def ElevatorActivate(ControlPins, ButtonPin):
     # setting up
-    GPIO.setmode(GPIO.BCM)
 
     for pin in ControlPins:
         GPIO.setup(pin, GPIO.OUT)
@@ -78,5 +77,22 @@ def ElevatorActivate(ControlPins, ButtonPin):
         cleanup()
 
 
+def ShockDetect(ShockPin):
+    GPIO.setup(ShockPin, GPIO.IN)
+    while GPIO.input(ShockPin) < 1:
+        time.sleep(0.1)
+    else:
+        return
+
+
+def main(ControlPins, ButtonPin, ShockPin):
+    GPIO.setmode(GPIO.BCM)
+    ElevatorActivate(ControlPins, ButtonPin)
+    print("Endstop Reached")
+    time.sleep(0.1)
+    ShockDetect(ShockPin)
+    print("Shock Detected!")
+
+
 if __name__ == "__main__":
-    ElevatorActivate()
+    main()
