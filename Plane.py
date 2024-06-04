@@ -9,6 +9,6 @@ def main(Relay):
     GPIO.output(Relay, GPIO.LOW)
 
 
-def init(Relay):
+def init(Relay):  # shouldnt be needed but keeping just in case
     GPIO.setup(Relay, GPIO.OUT)
     GPIO.output(Relay, GPIO.HIGH)

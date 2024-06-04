@@ -50,7 +50,6 @@ def loop(solenoid_pin, GPIO_ECHO, GPIO_TRIGGER):
             time.sleep(1)
     except KeyboardInterrupt:
         print("Measurement stopped by User")
-        GPIO.cleanup()
 
 
 def main(GPIO_ECHO, GPIO_TRIGGER, solenoid_pin):

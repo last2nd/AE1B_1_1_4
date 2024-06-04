@@ -9,8 +9,6 @@ def set_servo_angle(pwm, angle):
 
 
 def move_servo(servo_pin, button_pin):
-    GPIO.setmode(GPIO.BCM)
-    GPIO.setup(servo_pin, GPIO.OUT)
     GPIO.setup(button_pin, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 
     pwm = GPIO.PWM(servo_pin, 50)
@@ -18,7 +16,6 @@ def move_servo(servo_pin, button_pin):
 
     def button_callback():
         # Stop the program when button is pressed
-        GPIO.cleanup()
         pwm.stop()
         exit()  # Exit the program
 

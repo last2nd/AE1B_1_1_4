@@ -30,14 +30,6 @@ step_sequence = [
 
 
 def ElevatorActivate(ControlPins, ButtonPin):
-    # setting up
-
-    for pin in ControlPins:
-        GPIO.setup(pin, GPIO.OUT)
-        GPIO.output(pin, GPIO.LOW)
-
-    GPIO.setup(ButtonPin, GPIO.IN)
-
     def rotate_steps(steps, clockwise=True):
         global motor_step_counter
         direction = clockwise
@@ -53,38 +45,23 @@ def ElevatorActivate(ControlPins, ButtonPin):
                     motor_step_counter = (motor_step_counter + 1) % 8
                 time.sleep(step_sleep)
         except KeyboardInterrupt:
-            cleanup()
             exit(1)
-
-    def rotate_rotations(rotations, clockwise=True):
-        steps_per_rotation = step_count
-        total_steps = int(rotations * steps_per_rotation)
-        rotate_steps(total_steps, clockwise)
-
-    def cleanup():
-        for pin in ControlPins:
-            GPIO.output(pin, GPIO.LOW)
-        GPIO.cleanup()
 
     try:
         while GPIO.input(ButtonPin) > 0:
             rotate_steps(1)
     except KeyboardInterrupt:
-        cleanup()
         exit(1)
     finally:
         print("Endstop Reached")
-        cleanup()
 
 
 def ShockDetect(ShockPin):
-    GPIO.setup(ShockPin, GPIO.IN)
     while GPIO.input(ShockPin) < 1:
         time.sleep(0.1)
 
 
 def main(ControlPins, ButtonPin, ShockPin):
-    GPIO.setmode(GPIO.BCM)
     ElevatorActivate(ControlPins, ButtonPin)
     print("Endstop Reached")
     time.sleep(0.1)

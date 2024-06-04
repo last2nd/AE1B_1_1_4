@@ -1,3 +1,4 @@
+import RPi.GPIO as GPIO
 import time
 import Elevator
 import ServoRazorMotor
@@ -17,19 +18,35 @@ DistanceEcho = #any #type: ignore
 DistanceTrig = #any #type: ignore
 CarSolenoid = #any #type: ignore
 
-CatapultRelayPin = #any
-CatapultMicPin = #any
+CatapultRelayPin = #any #type:ignore
+CatapultMicPin = #any #type:ignore
 
 DcMotorInA = #any #type:ignore
 DcMotorInB = #any #type:ignore
+LightBarrierPin = #any #type:ignore
 
 PlaneRelay = #any #type: ignore
 
+InitOnOut = [PlaneRelay, CatapultRelayPin]
+Out = [HammerServoPin,ElevatorControlPins, DistanceEcho, CarSolenoid, DcMotorInA, DcMotorInB]
+In = [HammerButtonPin, ElevatorEndstopPin, ElevatorShockSensorPin, DistanceTrig, CatapultMicPin, LightBarrierPin]
+
+def clean(In,Out,Init):
+    for pins in In:
+        GPIO.setup(pins, GPIO.IN)
+    for pins in Out:
+        GPIO.setup(pins, GPIO.OUT)
+        GPIO.output(pins, GPIO.LOW)
+    for pins in Init: #might not work as intended, must test
+        GPIO.setup(pins, GPIO.OUT, initial=1)
 
 
 if input("start program? y/n\n") == "y":
-    Plane.init(PlaneRelay)
-    Catapult.init(CatapultRelayPin)
+    GPIO.setmode(GPIO.BCM)
+    clean(In, Out, InitOnOut)
+    print("Pins initialized")
+    #Plane.init(PlaneRelay)
+    #Catapult.init(CatapultRelayPin)
     time.sleep(5)
     print("Starting in 5")
     time.sleep(5)
@@ -56,5 +73,7 @@ if input("start program? y/n\n") == "y":
     print("Launching Plane")
     Plane.main(PlaneRelay)
     print("Program Finished")
+    GPIO.cleanup()
 else:
+    GPIO.cleanup()
     exit(1)

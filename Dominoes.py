@@ -3,9 +3,6 @@ import time
 
 
 def activate_dc_motor(ina, inb):
-    GPIO.setmode(GPIO.BCM)
-    GPIO.setup(ina, GPIO.OUT)
-    GPIO.setup(inb, GPIO.OUT)
     GPIO.output(ina, GPIO.HIGH)
     GPIO.output(inb, GPIO.LOW)
     print("DC Motor Activated")
@@ -19,7 +16,6 @@ def activate_dc_motor(ina, inb):
     print("DC Motor deActivated")
     GPIO.output(ina, GPIO.LOW)
     GPIO.output(inb, GPIO.LOW)
-    GPIO.cleanup()
     # change to implement motor stop on sensor activation!!
 
 
