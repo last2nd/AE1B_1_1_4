@@ -3,6 +3,7 @@ import Elevator
 import ServoRazorMotor
 import Dominoes
 import Hotwheels
+import Plane	
 
 HammerServoPin = #any #type: ignore
 HammerButtonPin = #any #type: ignore
@@ -20,8 +21,15 @@ JoyInPin = #ADCChannel #type: ignore
 DcMotorInA = #any #type:ignore
 DcMotorInB = #any #type:ignore
 
+PlaneRelay = #any #type: ignore
+
+
 
 if input("start program? y/n\n") == "y":
+    Plane.init(PlaneRelay)
+    time.sleep(5)
+    print("Starting in 5")
+    time.sleep(5)
     print("Starting Program")
     ServoRazorMotor.main(HammerServoPin, HammerButtonPin)
     print("Button has been hit!")
