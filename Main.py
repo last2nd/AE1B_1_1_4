@@ -6,6 +6,7 @@ import Dominoes
 import Hotwheels
 import Plane	
 import Catapult
+import TiltSensor
 
 HammerServoPin = #PWM #type: PWM
 HammerButtonPin = #any #type: ignore
@@ -65,9 +66,12 @@ if input("start program? y/n\n") == "y":
     print("Hotwheels Finished")
     time.sleep(0.5)
     clean(In, Out, InitOnOut)
+    #print("Starting Tilt measurement") #for tilt measurement
+    #TiltSensor.main(TiltSensorPin)
     print("Launching Ball")
     Catapult.main(CatapultRelayPin, CatapultMicPin)
     print("Ball landed")
+    #TiltSensor.end() #end the measurement (writes to .csv)
     time.sleep(0.5)
     clean(In, Out, InitOnOut)
     print("Dominoes Starting")
