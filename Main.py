@@ -4,6 +4,7 @@ import ServoRazorMotor
 import Dominoes
 import Hotwheels
 import Plane	
+import Catapult
 
 HammerServoPin = #any #type: ignore
 HammerButtonPin = #any #type: ignore
@@ -16,7 +17,8 @@ DistanceEcho = #any #type: ignore
 DistanceTrig = #any #type: ignore
 CarSolenoid = #any #type: ignore
 
-JoyInPin = #ADCChannel #type: ignore
+CatapultRelayPin = #any
+CatapultMicPin = #any
 
 DcMotorInA = #any #type:ignore
 DcMotorInB = #any #type:ignore
@@ -27,6 +29,7 @@ PlaneRelay = #any #type: ignore
 
 if input("start program? y/n\n") == "y":
     Plane.init(PlaneRelay)
+    Catapult.init(CatapultRelayPin)
     time.sleep(5)
     print("Starting in 5")
     time.sleep(5)
@@ -42,9 +45,9 @@ if input("start program? y/n\n") == "y":
     Hotwheels.main(DistanceEcho,DistanceTrig,CarSolenoid)
     print("Hotwheels Finished")
     time.sleep(0.5)
-    #print("Launching Ball")
-    #Launch.main(pins)
-    #print("Ball landed")
+    print("Launching Ball")
+    Catapult.main(CatapultRelayPin, CatapultMicPin)
+    print("Ball landed")
     time.sleep(0.5)
     print("Dominoes Starting")
     Dominoes.main(DcMotorInA,DcMotorInB)
