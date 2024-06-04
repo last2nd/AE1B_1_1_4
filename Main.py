@@ -50,8 +50,8 @@ if input("start program? y/n\n") == "y":
     Dominoes.main(DcMotorInA,DcMotorInB)
     print("Dominoes Finished")
     time.sleep(0.5)
-    #print("Launching Plane")
-    #Plane.main(pins)
-    #print("Program Finished")
+    print("Launching Plane")
+    Plane.main(PlaneRelay)
+    print("Program Finished")
 else:
     exit(1)
