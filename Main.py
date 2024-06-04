@@ -7,7 +7,7 @@ import Hotwheels
 import Plane	
 import Catapult
 
-HammerServoPin = #any #type: ignore
+HammerServoPin = #PWM #type: PWM
 HammerButtonPin = #any #type: ignore
 
 ElevatorControlPins = #any #type: ignore
@@ -45,7 +45,7 @@ if input("start program? y/n\n") == "y":
     GPIO.setmode(GPIO.BCM)
     clean(In, Out, InitOnOut)
     print("Pins initialized")
-    #Plane.init(PlaneRelay)
+    #Plane.init(PlaneRelay) #no longer needed if works correctly
     #Catapult.init(CatapultRelayPin)
     time.sleep(5)
     print("Starting in 5")
@@ -54,22 +54,27 @@ if input("start program? y/n\n") == "y":
     ServoRazorMotor.main(HammerServoPin, HammerButtonPin)
     print("Button has been hit!")
     time.sleep(0.5)
+    clean(In, Out, InitOnOut)
     print("Activating Elevator")
     Elevator.main(ElevatorControlPins,ElevatorEndstopPin, ElevatorShockSensorPin)
     print("Elevator Finished")
     time.sleep(0.5)
+    clean(In, Out, InitOnOut)
     print("Hotwheels Released")
     Hotwheels.main(DistanceEcho,DistanceTrig,CarSolenoid)
     print("Hotwheels Finished")
     time.sleep(0.5)
+    clean(In, Out, InitOnOut)
     print("Launching Ball")
     Catapult.main(CatapultRelayPin, CatapultMicPin)
     print("Ball landed")
     time.sleep(0.5)
+    clean(In, Out, InitOnOut)
     print("Dominoes Starting")
     Dominoes.main(DcMotorInA,DcMotorInB)
     print("Dominoes Finished")
     time.sleep(0.5)
+    clean(In, Out, InitOnOut)
     print("Launching Plane")
     Plane.main(PlaneRelay)
     print("Program Finished")
