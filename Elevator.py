@@ -37,7 +37,7 @@ def ElevatorActivate(ControlPins, ButtonPin):
             for _ in range(steps):
                 for pin in range(0, len(ControlPins)):
                     GPIO.output(
-                        ControlPins[pin], step_sequence[motor_step_counter][pin]
+                        ControlPins[pin], step_sequence[motor_step_counter][pin]  # type: ignore
                     )
                 if direction == True:
                     motor_step_counter = (motor_step_counter - 1) % 8
@@ -70,4 +70,5 @@ def main(ControlPins, ButtonPin, ShockPin):
 
 
 if __name__ == "__main__":
-    main()
+    # main()
+    print("no pins")

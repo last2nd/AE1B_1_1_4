@@ -38,7 +38,7 @@ def distance(GPIO_ECHO, GPIO_TRIGGER):
 def loop(solenoid_pin, GPIO_ECHO, GPIO_TRIGGER):
     try:
         while True:
-            dist = distance()
+            dist = distance(GPIO_ECHO, GPIO_TRIGGER)
             if (
                 dist < 10
             ):  # Adjust this value to trigger the solenoid at a certain distance
@@ -62,4 +62,5 @@ def main(GPIO_ECHO, GPIO_TRIGGER, solenoid_pin):
 
 # Run the loop function
 if __name__ == "__main__":
-    loop()
+    print("test")
+    # loop()

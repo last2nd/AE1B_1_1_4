@@ -21,7 +21,7 @@ def move_servo(servo_pin, button_pin):
 
     # Add event detection for falling edge (button press) with debounce
     GPIO.add_event_detect(
-        button_pin, GPIO.FALLING, callback=button_callback, bouncetime=200
+        button_pin, GPIO.FALLING, callback=button_callback(), bouncetime=200
     )
 
     while True:
@@ -41,4 +41,5 @@ def main(servo_pin, button_pin):
 
 
 if __name__ == "__main__":
-    main()
+    print("No pins")
+    # main()
