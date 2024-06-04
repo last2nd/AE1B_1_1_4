@@ -5,9 +5,9 @@ from time import sleep
 # Micro_pin = None  # Microphone pin
 
 
-# Something_happens = None  # Something suppose to happen befor the weight will be dropped
+# Something_happens = None  # Something suppose to happen before the weight will be dropped
 # Something_happens_next = None
-def init(Relay_pin):  # shouldnt be needed but keeping just in case
+def init(Relay_pin):  # shouldn't be needed but keeping just in case
     GPIO.setup(Relay_pin, GPIO.OUT, initial=1)
     GPIO.output(Relay_pin, 1)
 
